@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -37,6 +38,7 @@ public class Stopwatch {
         frame.getContentPane().setBackground(Color.black);
         frame.setDefaultCloseOperation(3);
         frame.setResizable(false);
+        frame.setIconImage(new ImageIcon(getClass().getResource("stop.png")).getImage());
 
         time.setHorizontalAlignment(JTextField.CENTER);
         time.setBackground(Color.black);
@@ -68,6 +70,12 @@ public class Stopwatch {
                     time.setText("00:00:00");
                     startButton.setText("Start");
                     pauseButton.setEnabled(false);
+                    pauseButton.setText("Pause");
+                    try{
+                        Thread.sleep(1000);
+                    }catch(Exception ex){
+                        
+                    }
                 }
             }
         });
@@ -85,6 +93,11 @@ public class Stopwatch {
                     time.setHorizontalAlignment(JTextField.CENTER);
                     time.setText(time.getText());
                     pauseButton.setText("Resume");
+                    try{
+                        Thread.sleep(1000);
+                    }catch(Exception ex){
+                        
+                    }
                 } else {
                     pause = false;
                     pauseButton.setText("Pause");
@@ -113,10 +126,7 @@ public class Stopwatch {
                         m = 0;
                         h++;
                     }
-                    String hour = String.format("%02d", h);
-                    String minute = String.format("%02d", m);
-                    String second = String.format("%02d", s);
-                    time.setText(hour + ":" + minute + ":" + second);
+                    time.setText(parseTime(h) + ":" + parseTime(m) + ":" + parseTime(s));
                     try {
                         Thread.sleep(1000);
                     } catch (Exception ex) {
@@ -126,5 +136,9 @@ public class Stopwatch {
             }
         };
         thread.start();
+    }
+    
+    String parseTime(int t){
+        return String.format("%02d", t);
     }
 }
