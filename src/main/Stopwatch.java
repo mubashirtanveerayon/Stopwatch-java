@@ -22,7 +22,12 @@ public class Stopwatch {
     int h = 0, m = 0, s = 0;
 
     public static void main(String[] args) {
-        new Stopwatch();
+        Thread thread = new Thread(){
+            public void run(){
+                new Stopwatch();
+            }
+        };
+        thread.start();
     }
 
     Stopwatch() {
